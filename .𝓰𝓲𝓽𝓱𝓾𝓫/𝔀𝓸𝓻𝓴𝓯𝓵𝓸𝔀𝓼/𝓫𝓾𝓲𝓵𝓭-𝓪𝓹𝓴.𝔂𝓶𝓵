@@ -1,35 +1,35 @@
-𝓷𝓪𝓶𝓮: 𝓑𝓾𝓲𝓵𝓭 𝓐𝓘 𝓢𝓱𝓸𝓻𝓽𝓼 𝓕𝓪𝓬𝓽𝓸𝓻𝔂 𝓐𝓟𝓚
+name: Build AI Shorts Factory APK
 
-𝓸𝓷:
-  𝔀𝓸𝓻𝓴𝓯𝓵𝓸𝔀_𝓭𝓲𝓼𝓹𝓪𝓽𝓬𝓱:
-  𝓹𝓾𝓼𝓱:
-    𝓫𝓻𝓪𝓷𝓬𝓱𝓮𝓼:
-      - 𝓶𝓪𝓲𝓷
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
 
-𝓳𝓸𝓫𝓼:
-  𝓫𝓾𝓲𝓵𝓭:
-    𝓻𝓾𝓷𝓼-𝓸𝓷: 𝓾𝓫𝓾𝓷𝓽𝓾-𝓵𝓪𝓽𝓮𝓼𝓽
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-    𝓼𝓽𝓮𝓹𝓼:
-      - 𝓷𝓪𝓶𝓮: 𝓒𝓱𝓮𝓬𝓴𝓸𝓾𝓽
-        𝓾𝓼𝓮𝓼: 𝓪𝓬𝓽𝓲𝓸𝓷𝓼/𝓬𝓱𝓮𝓬𝓴𝓸𝓾𝓽@𝓿4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - 𝓷𝓪𝓶𝓮: 𝓢𝓮𝓽𝓾𝓹 𝓕𝓵𝓾𝓽𝓽𝓮𝓻
-        𝓾𝓼𝓮𝓼: 𝓼𝓾𝓫𝓸𝓼𝓲𝓽𝓸/𝓯𝓵𝓾𝓽𝓽𝓮𝓻-𝓪𝓬𝓽𝓲𝓸𝓷@𝓿2
-        𝔀𝓲𝓽𝓱:
-          𝓬𝓱𝓪𝓷𝓷𝓮𝓵: 𝓼𝓽𝓪𝓫𝓵𝓮
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
 
-      - 𝓷𝓪𝓶𝓮: 𝓒𝓻𝓮𝓪𝓽𝓮 𝓐𝓷𝓭𝓻𝓸𝓲𝓭 𝓹𝓻𝓸𝓳𝓮𝓬𝓽
-        𝓻𝓾𝓷: 𝓯𝓵𝓾𝓽𝓽𝓮𝓻 𝓬𝓻𝓮𝓪𝓽𝓮 --𝓹𝓵𝓪𝓽𝓯𝓸𝓻𝓶𝓼=𝓪𝓷𝓭𝓻𝓸𝓲𝓭 .
+      - name: Create Android project
+        run: flutter create --platforms=android .
 
-      - 𝓷𝓪𝓶𝓮: 𝓖𝓮𝓽 𝓭𝓮𝓹𝓮𝓷𝓭𝓮𝓷𝓬𝓲𝓮𝓼
-        𝓻𝓾𝓷: 𝓯𝓵𝓾𝓽𝓽𝓮𝓻 𝓹𝓾𝓫 𝓰𝓮𝓽
+      - name: Get dependencies
+        run: flutter pub get
 
-      - 𝓷𝓪𝓶𝓮: 𝓑𝓾𝓲𝓵𝓭 𝓐𝓟𝓚
-        𝓻𝓾𝓷: 𝓯𝓵𝓾𝓽𝓽𝓮𝓻 𝓫𝓾𝓲𝓵𝓭 𝓪𝓹𝓴 --𝓻𝓮𝓵𝓮𝓪𝓼𝓮
+      - name: Build APK
+        run: flutter build apk --release
 
-      - 𝓷𝓪𝓶𝓮: 𝓤𝓹𝓵𝓸𝓪𝓭 𝓐𝓟𝓚
-        𝓾𝓼𝓮𝓼: 𝓪𝓬𝓽𝓲𝓸𝓷𝓼/𝓾𝓹𝓵𝓸𝓪𝓭-𝓪𝓻𝓽𝓲𝓯𝓪𝓬𝓽@𝓿4
-        𝔀𝓲𝓽𝓱:
-          𝓷𝓪𝓶𝓮: 𝓐𝓘-𝓢𝓱𝓸𝓻𝓽𝓼-𝓕𝓪𝓬𝓽𝓸𝓻𝔂-𝓐𝓟𝓚
-          𝓹𝓪𝓽𝓱: 𝓫𝓾𝓲𝓵𝓭/𝓪𝓹𝓹/𝓸𝓾𝓽𝓹𝓾𝓽𝓼/𝓯𝓵𝓾𝓽𝓽𝓮𝓻-𝓪𝓹𝓴/𝓪𝓹𝓹-𝓻𝓮𝓵𝓮𝓪𝓼𝓮.𝓪𝓹𝓴
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: AI-Shorts-Factory-APK
+          path: build/app/outputs/flutter-apk/app-release.apk
